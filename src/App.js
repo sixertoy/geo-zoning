@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Helmet } from "react-helmet";
 import {
   Map,
   Marker,
@@ -9,34 +8,33 @@ import {
   ZoomControl
 } from "react-leaflet";
 
+import Loader from './Loader';
 import MarkerIcon from './marker-icon';
 
 const RADIUS_METER = 100000;
-const OSM_LAYER = "http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
-const LEAFLET_CSS = "https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+const OSM_LAYER = "http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png";
 
 const App = ({ useZoomControl }) => {
-  const mapElement = useRef(null);
-  const [isVisible, setCircleVisibility] = useState(true);
   const [coords, setCoords] = useState(null);
   const [mapCenter, setMapCenter] = useState(null);
+  const [isVisible, setCircleVisibility] = useState(true);
   useEffect(() => {
-    if (!mapCenter && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(({ coords }) => {
-        const latlng = { lat: coords.latitude, lng: coords.longitude };
-        if (!mapCenter) setMapCenter(latlng)
-        setCoords(latlng);
+    if (!coords && !mapCenter && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude: lat, longitude: lng } = position.coords
+        const nextCoords = { lat, lng };
+        setMapCenter(nextCoords);
+        setCoords(nextCoords);
       });
     }
   })
-  if (!coords) return null;
+  if (!coords || !mapCenter) return <Loader />;
   return (
     <div id="app-container">
       <Map
         zoom={9}
         minZoom={1}
         maxZoom={17}
-        ref={mapElement}
         center={mapCenter}
         zoomControl={useZoomControl}
         // maxBounds={[
@@ -57,9 +55,6 @@ const App = ({ useZoomControl }) => {
         onMoveStart={() => setCircleVisibility(false)} />
         {useZoomControl && <ZoomControl position="topright" />}
       </Map>
-      <Helmet>
-        <link rel="stylesheet" href={LEAFLET_CSS} />
-      </Helmet>
     </div>
   );
 };
