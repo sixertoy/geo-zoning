@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 
+import { version } from '../../package.json';
+
 const useStyles = createUseStyles({
   button: {
     backgroundColor: '#000',
@@ -16,6 +18,7 @@ const useStyles = createUseStyles({
     color: '#FFFFFF',
     composes: ['flex-rows', 'flex-center', 'items-center'],
     padding: 35,
+    position: 'relative',
   },
   controls: {
     composes: ['flex-columns', 'flex-center'],
@@ -40,6 +43,13 @@ const useStyles = createUseStyles({
   },
   title: {
     composes: ['is-bold'],
+  },
+  version: {
+    fontSize: '0.6rem',
+    opacity: 0.45,
+    position: 'absolute',
+    right: 10,
+    top: 10,
   },
   wrapper: {
     textAlign: 'center',
@@ -99,6 +109,9 @@ const Welcome = ({ onClickHandler }) => {
             Cette application ne stocke aucunes de vos informations personelles
           </p>
         </div>
+      </div>
+      <div className={classes.version}>
+        <small>v{version}</small>
       </div>
     </div>
   );
