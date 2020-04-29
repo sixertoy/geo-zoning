@@ -16,7 +16,7 @@ const getLatLng = position => {
     !position.coords.latitude ||
     !position.coords.longitude
   ) {
-    return null;
+    return PARIS_CENTER;
   }
   const { latitude, longitude } = position.coords;
   const next = { lat: latitude, lng: longitude };
@@ -37,10 +37,15 @@ const App = () => {
             if (!useGeoloc || !navigator.geolocation) {
               setMapCenter(PARIS_CENTER);
             } else {
-              navigator.geolocation.getCurrentPosition(position => {
-                const next = getLatLng(position);
-                setMapCenter(next || PARIS_CENTER);
-              });
+              navigator.permissions.query({ name: 'geolocation' });
+              navigator.geolocation.getCurrentPosition(
+                position => {
+                  setMapCenter(getLatLng(position));
+                },
+                () => {
+                  setMapCenter(PARIS_CENTER);
+                }
+              );
             }
           }}
         />
