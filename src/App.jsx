@@ -34,18 +34,17 @@ const App = () => {
         <Welcome
           onClickHandler={useGeoloc => {
             setIsClicked(true);
-            if (!useGeoloc || !navigator.geolocation) {
+            try {
+              if (!useGeoloc || !navigator.geolocation) {
+                setMapCenter(PARIS_CENTER);
+              } else {
+                navigator.geolocation.getCurrentPosition(
+                  position => setMapCenter(getLatLng(position)),
+                  () => setMapCenter(PARIS_CENTER)
+                );
+              }
+            } catch (err) {
               setMapCenter(PARIS_CENTER);
-            } else {
-              navigator.permissions.query({ name: 'geolocation' });
-              navigator.geolocation.getCurrentPosition(
-                position => {
-                  setMapCenter(getLatLng(position));
-                },
-                () => {
-                  setMapCenter(PARIS_CENTER);
-                }
-              );
             }
           }}
         />
