@@ -26,7 +26,8 @@ const GeoMap = ({ center, useZoomControl }) => {
         maxZoom={17}
         minZoom={1}
         zoom={9}
-        zoomControl={false}>
+        zoomControl={false}
+        onClick={({ latlng }) => setCoords(latlng)}>
         <TileLayer attribution="Open Street Map" url={OSM_LAYER} />
         {isVisible && <Circle center={coords} radius={RADIUS_METER} />}
         <Marker

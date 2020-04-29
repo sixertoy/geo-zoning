@@ -38,9 +38,11 @@ const App = () => {
               if (!useGeoloc || !navigator.geolocation) {
                 setMapCenter(PARIS_CENTER);
               } else {
+                const opts = { enableHighAccuracy: false, timeout: 5000 };
                 navigator.geolocation.getCurrentPosition(
                   position => setMapCenter(getLatLng(position)),
-                  () => setMapCenter(PARIS_CENTER)
+                  () => setMapCenter(PARIS_CENTER),
+                  opts
                 );
               }
             } catch (err) {
