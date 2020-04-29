@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/geo-zoning/precache-manifest.89489faeb2baab9e1bec2b63b1528f83.js"
+  "/geo-zoning/precache-manifest.f7e515cb18e524a8c98e6b0f5c48ab26.js"
 );
 
 self.addEventListener('message', (event) => {

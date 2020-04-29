@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { createUseStyles } from 'react-jss';
 
+import { version } from '../package.json';
 import GeoMap from './components/GeoMap';
 import Loader from './components/Loader';
 import Welcome from './components/Welcome';
@@ -8,6 +10,20 @@ const PARIS_CENTER = {
   lat: 48.8534,
   lng: 2.3488,
 };
+
+const useStyles = createUseStyles({
+  container: {
+    position: 'relative',
+  },
+  version: {
+    bottom: 10,
+    fontSize: '0.6rem',
+    left: 10,
+    // opacity: 0.45,
+    position: 'absolute',
+    zIndex: 100000000,
+  },
+});
 
 const getLatLng = position => {
   if (
@@ -24,10 +40,14 @@ const getLatLng = position => {
 };
 
 const App = () => {
+  const classes = useStyles();
   const [mapCenter, setMapCenter] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   return (
-    <div id="app-container">
+    <div classes={classes.container} id="app-container">
+      <div className={classes.version}>
+        <small>v{version}</small>
+      </div>
       {isClicked && !mapCenter && <Loader />}
       {isClicked && mapCenter && <GeoMap center={mapCenter} />}
       {!isClicked && !mapCenter && (
