@@ -1,11 +1,12 @@
+import './css/index.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import "./index.css";
-import "./leaflet-div-icon.css";
 import App from './App';
 
 ReactDOM.render(
+  // eslint-disable-next-line
   <React.StrictMode>
     <App />
   </React.StrictMode>,
