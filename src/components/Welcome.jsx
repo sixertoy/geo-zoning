@@ -15,6 +15,7 @@ const useStyles = createUseStyles({
   container: {
     color: '#FFFFFF',
     composes: ['flex-rows', 'flex-center', 'items-center'],
+    padding: 35,
   },
   controls: {
     composes: ['flex-columns', 'flex-center'],
