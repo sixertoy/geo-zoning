@@ -20,6 +20,12 @@ const useStyles = createUseStyles({
     composes: ['flex-columns', 'flex-center'],
     marginTop: 20,
   },
+  help: {
+    composes: ['is-italic'],
+    fontSize: '0.85rem',
+    marginTop: 20,
+    opacity: 0.45,
+  },
   message: {
     fontSize: '1.2rem',
     marginTop: 40,
@@ -67,6 +73,12 @@ const Welcome = ({ onClickHandler }) => {
               <span>Non</span>
             </button>
           </div>
+        </div>
+        <div className={classes.help}>
+          <p>
+            Utiliser la molette de votre souris pour zoomer/dézoomer sur la
+            carte
+          </p>
         </div>
       </div>
     </div>
