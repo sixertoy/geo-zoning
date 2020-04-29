@@ -21,8 +21,11 @@ const useStyles = createUseStyles({
     composes: ['flex-columns', 'flex-center'],
     marginTop: 20,
   },
+  disclaimer: {
+    composes: ['is-bold'],
+    marginTop: 36,
+  },
   help: {
-    composes: ['is-italic'],
     fontSize: '0.85rem',
     marginTop: 20,
     opacity: 0.45,
@@ -30,6 +33,10 @@ const useStyles = createUseStyles({
   message: {
     fontSize: '1.2rem',
     marginTop: 40,
+  },
+  paf: {
+    composes: ['is-italic'],
+    marginBottom: 12,
   },
   title: {
     composes: ['is-bold'],
@@ -65,6 +72,7 @@ const Welcome = ({ onClickHandler }) => {
               type="button"
               onClick={() => onClickHandler(true)}>
               <span>Oui</span>
+              <sup>*</sup>
             </button>
             <button
               className={classes.button}
@@ -76,9 +84,19 @@ const Welcome = ({ onClickHandler }) => {
           </div>
         </div>
         <div className={classes.help}>
-          <p>
+          <p className={classes.paf}>
+            <sup>*</sup>&nbsp;
+            <span>
+              La géolocation doit être activée dans les préférences de votre
+              device
+            </span>
+          </p>
+          <p className={classes.paf}>
             Utiliser la molette de votre souris pour zoomer/dézoomer sur la
             carte
+          </p>
+          <p className={classes.disclaimer}>
+            Cette application ne stocke aucunes de vos informations personelles
           </p>
         </div>
       </div>
