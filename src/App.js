@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import {
@@ -15,12 +15,21 @@ const RADIUS_METER = 100000;
 const OSM_LAYER = "http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
 const LEAFLET_CSS = "https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 
-const PARIS_CENTER = [43.39528702235596, 6.294845731267186]
-
 const App = ({ useZoomControl }) => {
   const mapElement = useRef(null);
   const [isVisible, setCircleVisibility] = useState(true);
-  const [coords, setCoords] = useState({lat: 43.040845, lng: 6.145118});
+  const [coords, setCoords] = useState(null);
+  const [mapCenter, setMapCenter] = useState(null);
+  useEffect(() => {
+    if (!mapCenter && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        const latlng = { lat: coords.latitude, lng: coords.longitude };
+        if (!mapCenter) setMapCenter(latlng)
+        setCoords(latlng);
+      });
+    }
+  })
+  if (!coords) return null;
   return (
     <div id="app-container">
       <Map
@@ -28,7 +37,7 @@ const App = ({ useZoomControl }) => {
         minZoom={1}
         maxZoom={17}
         ref={mapElement}
-        center={PARIS_CENTER}
+        center={mapCenter}
         zoomControl={useZoomControl}
         // maxBounds={[
         //   [44.077884090674495, 7.261531242479236],
@@ -38,14 +47,14 @@ const App = ({ useZoomControl }) => {
         <TileLayer attribution={"Open Street Map"} url={OSM_LAYER} />
         {isVisible && <Circle radius={RADIUS_METER} center={coords} />}
         <Marker draggable
-          icon={MarkerIcon}
-          position={coords}
-          onMoveEnd={({ target }) => {
-            const nextCoords = target.getLatLng();
-            setCoords(nextCoords);
-            setCircleVisibility(true);
-          }}
-          onMoveStart={() => setCircleVisibility(false)} />
+        icon={MarkerIcon}
+        position={coords}
+        onMoveEnd={({ target }) => {
+          const nextCoords = target.getLatLng();
+          setCoords(nextCoords);
+          setCircleVisibility(true);
+        }}
+        onMoveStart={() => setCircleVisibility(false)} />
         {useZoomControl && <ZoomControl position="topright" />}
       </Map>
       <Helmet>
