@@ -6,7 +6,7 @@ import { Circle, Map, Marker, TileLayer, ZoomControl } from 'react-leaflet';
 import MarkerIcon from './MarkerIcon';
 
 const RADIUS_METER = 100000;
-const OSM_LAYER = 'http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+const OSM_LAYER = 'https://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
 
 const useStyles = createUseStyles({
   container: {
