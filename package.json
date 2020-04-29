@@ -2,6 +2,7 @@
   "name": "covid-map",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sixertoy.github.io/geo-zoning/",
   "dependencies": {
     "@nappr/nappr-styles": "^0.2.12",
     "@testing-library/jest-dom": "^4.2.4",
@@ -17,7 +18,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && mv build docs",
+    "prebuild": "rm -rf ./docs",
+    "build": "react-scripts build",
+    "postbuild": "mv ./build ./docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
