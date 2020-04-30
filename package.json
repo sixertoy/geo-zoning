@@ -1,6 +1,6 @@
 {
   "name": "covid-map",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "private": true,
   "homepage": "https://sixertoy.github.io/geo-zoning/",
   "dependencies": {
