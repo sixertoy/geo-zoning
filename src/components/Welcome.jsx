@@ -97,7 +97,7 @@ const Welcome = ({ onClickHandler }) => {
             carte
           </p>
           <p className={classes.disclaimer}>
-            Cette application ne stocke aucunes de vos informations personelles
+            Cette application ne stocke aucune de vos informations personnelles
           </p>
         </div>
       </div>
